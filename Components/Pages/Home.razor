@@ -1,0 +1,102 @@
+﻿
+@page "/"
+@using ConnectFour.Models
+
+<PageTitle>Connect Four</PageTitle>
+
+<div class="game-container">
+    <h1>Connect Four</h1>
+    <p class="subtitle">Connect four pieces to win!</p>
+
+    <div class="game-info">
+        @if (game.Winner.HasValue)
+        {
+            <h2>Player @game.Winner wins!</h2>
+        }
+        else if (game.IsDraw)
+        {
+            <h2>It's a draw!</h2>
+        }
+        else
+        {
+            <h2>Player @game.CurrentPlayer's turn</h2>
+        }
+    </div>
+
+    <div class="board">
+        @for (int row = 0; row < GameState.Rows; row++)
+{
+    @for (int col = 0; col < GameState.Columns; col++)
+    {
+        int column = col;
+        int cell = game.Board[row, column];
+
+        <button class="cell player-@cell"
+                disabled="@(game.IsGameOver || cell != 0 || IsColumnFull(column))"
+                @onclick="() => PlayMove(column)"
+                aria-label="@($"Row {row + 1}, column {column + 1}")">
+        </button>
+    }
+}
+    </div>
+
+    
+    <button class="reset-button" @onclick="ResetGame">
+        New Game
+    </button>
+
+    <div class="history-container">
+        <h2>Move History</h2>
+
+        @if (game.History.Count == 0)
+        {
+            <p class="empty-history">No moves yet. Start playing!</p>
+        }
+        else
+        {
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Move</th>
+                        <th>Player</th>
+                        <th>Column</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var move in game.History)
+                    {
+                        <tr>
+                            <td>@move.Number</td>
+                            <td>
+                                <span class="player-label player-label-@move.Player">
+                                    Player @move.Player
+                                </span>
+                            </td>
+                            <td>@move.Column</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+
+</div>
+
+@code {
+    private GameState game = new();
+
+    private void PlayMove(int column)
+    {
+        game.DropPiece(column);
+    }
+
+    private void ResetGame()
+    {
+        game.Reset();
+    }
+
+    private bool IsColumnFull(int column)
+    {
+        return game.Board[0, column] != 0;
+    }
+}

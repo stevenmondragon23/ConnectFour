@@ -1,0 +1,149 @@
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.game-container h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 0.2rem;
+}
+
+.subtitle {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+}
+
+.game-info {
+    min-height: 65px;
+    color: #334155;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    background-color: #2563eb;
+    padding: 15px;
+    border-radius: 15px;
+    width: min(100%, 490px);
+    aspect-ratio: 7 / 6;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.cell {
+    border: none;
+    border-radius: 50%;
+    background-color: #e2e8f0;
+    cursor: pointer;
+    aspect-ratio: 1;
+    min-width: 0;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.cell:not(:disabled):hover {
+    background-color: #cbd5e1;
+    transform: scale(0.94);
+}
+
+.cell.player-1 {
+    background-color: #ef4444;
+}
+
+.cell.player-2 {
+    background-color: #facc15;
+}
+
+.cell:disabled {
+    cursor: default;
+}
+
+.reset-button {
+    margin-top: 1.5rem;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    background-color: #1e293b;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.reset-button:hover {
+    background-color: #334155;
+}
+
+@media (max-width: 480px) {
+    .board {
+        gap: 5px;
+        padding: 9px;
+    }
+
+    .game-container h1 {
+        font-size: 2.1rem;
+    }
+}
+
+.history-container {
+    width: min(100%, 490px);
+    margin-top: 2rem;
+    text-align: left;
+}
+
+.history-container h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+.empty-history {
+    color: #64748b;
+    text-align: center;
+    padding: 1rem;
+    background-color: #f1f5f9;
+    border-radius: 8px;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.history-table th,
+.history-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.history-table th {
+    background-color: #1e293b;
+    color: white;
+    font-weight: 600;
+}
+
+.history-table tr:last-child td {
+    border-bottom: none;
+}
+
+.player-label {
+    font-weight: 700;
+}
+
+.player-label-1 {
+    color: #dc2626;
+}
+
+.player-label-2 {
+    color: #ca8a04;
+}
